@@ -1,0 +1,26 @@
+diff --git a/dist/utils/eth.js b/dist/utils/eth.js
+index 7accf302d64b6684cdaa772acb830c50adc45cc8..18051667aac9f5fc6678ff352b36295260264083 100644
+--- a/dist/utils/eth.js
++++ b/dist/utils/eth.js
+@@ -22,6 +22,8 @@ export async function getGasPriceEstimate(provider, options) {
+         const message = 'details' in err && err.details ? err.details : err.message;
+         if (message &&
+             (message.indexOf('unknown method eth_feeHistory') != -1 ||
++                message.indexOf('Method not found') != -1 ||
++                (err && (err.code === -32601 || (err.data && err.data.code === -32601))) ||
+                 message.indexOf('The method "eth_feeHistory" does not exist') != -1)) {
+             logger.warn(`eth_feeHistory not implemeted by node, falling back on "eth_gasPrice"`);
+             const gasPrice = await provider.request({ method: 'eth_gasPrice' });
+diff --git a/src/utils/eth.ts b/src/utils/eth.ts
+index 5b87db353c1077a6c2ffc485af8be584e9ba3982..4990f20129866181366beee2c18a15df6c66e001 100644
+--- a/src/utils/eth.ts
++++ b/src/utils/eth.ts
+@@ -46,6 +46,8 @@ export async function getGasPriceEstimate(
+ 		if (
+ 			message &&
+ 			(message.indexOf('unknown method eth_feeHistory') != -1 ||
++                message.indexOf('Method not found') != -1 ||
++                (err && (err.code === -32601 || (err.data && err.data.code === -32601))) ||
+ 				message.indexOf('The method "eth_feeHistory" does not exist') != -1)
+ 		) {
+ 			logger.warn(`eth_feeHistory not implemeted by node, falling back on "eth_gasPrice"`);

@@ -1,5 +1,6 @@
 import * as chains from "viem/chains";
 import scaffoldConfig from "~~/scaffold.config";
+import { potosTestnet } from "~~/utils/scaffold-eth/customChains";
 
 type ChainAttributes = {
   // color | [lightThemeColor, darkThemeColor]
@@ -43,6 +44,9 @@ export const getAlchemyHttpUrl = (chainId: number) => {
 };
 
 export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
+  [potosTestnet.id]: {
+    color: "#0ea5e9",
+  },
   [chains.hardhat.id]: {
     color: "#b8af0c",
   },
@@ -96,6 +100,13 @@ export const NETWORKS_EXTRA_DATA: Record<string, ChainAttributes> = {
  * Gives the block explorer transaction URL, returns empty string if the network is a local chain
  */
 export function getBlockExplorerTxLink(chainId: number, txnHash: string) {
+  // 先查 scaffold.config 里配置的网络，自定义链（如 POTOS）不在 viem/chains 里
+  const configuredChain = scaffoldConfig.targetNetworks.find(network => network.id === chainId);
+  const configuredExplorer = configuredChain?.blockExplorers?.default?.url;
+  if (configuredExplorer) {
+    return `${configuredExplorer}/tx/${txnHash}`;
+  }
+
   const chainNames = Object.keys(chains);
 
   const targetChainArr = chainNames.filter(chainName => {

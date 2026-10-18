@@ -5,11 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { hardhat } from "viem/chains";
-import { Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
+import { ArrowsRightLeftIcon, Bars3Icon, BugAntIcon } from "@heroicons/react/24/outline";
 import { FaucetButton, RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick, useTargetNetwork } from "~~/hooks/scaffold-eth";
-
-
 
 type HeaderMenuLink = {
   label: string;
@@ -19,14 +17,19 @@ type HeaderMenuLink = {
 
 export const menuLinks: HeaderMenuLink[] = [
   {
-    label: 'Home',
-    href: '/'
+    label: "Home",
+    href: "/",
   },
   {
-    label: 'Debug Contracts',
-    href: '/debug',
-    icon: <BugAntIcon className="h-4 w-4" />
-  }
+    label: "班级集市",
+    href: "/dex",
+    icon: <ArrowsRightLeftIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Debug Contracts",
+    href: "/debug",
+    icon: <BugAntIcon className="h-4 w-4" />,
+  },
 ];
 
 export const HeaderMenuLinks = () => {
@@ -88,8 +91,8 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Scaffold-ETH</span>
-            <span className="text-xs">Ethereum dev stack</span>
+            <span className="font-bold leading-tight">POTOS 班级集市</span>
+            <span className="text-xs">区块链技术与应用 实训</span>
           </div>
         </Link>
         <ul className="hidden lg:flex lg:flex-nowrap h-full m-0 p-0 list-none">

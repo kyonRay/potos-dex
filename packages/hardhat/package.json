@@ -12,6 +12,7 @@
     "clean": "hardhat clean",
     "compile": "hardhat compile",
     "deploy": "hardhat compile && tsx scripts/runHardhatDeployWithPK.ts",
+    "fill-gr": "tsx scripts/fillGrOrders.ts",
     "flatten": "hardhat flatten",
     "fork": "MAINNET_FORKING_ENABLED=true hardhat node --network hardhat",
     "format": "prettier --write './**/*.(ts|sol)'",
@@ -62,7 +63,7 @@
     "mocha": "^11",
     "prettier": "^3.5.3",
     "prettier-plugin-solidity": "^1.4.1",
-    "rocketh": "^0.19.7",
+    "rocketh": "patch:rocketh@npm%3A0.19.20#~/.yarn/patches/rocketh-npm-0.19.20-1a0eef59ad.patch",
     "tsx": "^4.21.0",
     "typescript": "^5.8.2"
   }
